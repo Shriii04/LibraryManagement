@@ -23,12 +23,27 @@ Ensure you have the following installed on your system:
    git clone <repository-url>
    cd library_management
 2. **Create a Virtual Environment Create a virtual environment to isolate the project dependencies:**
-```bash
+   ```bash
    Copy code
    python -m venv venv
    source venv/bin/activate    # On Windows: venv\\Scripts\\activate
-
 3. **Install Dependencies Install the required Python libraries:**
    ```bash
-      Copy code
-      pip install -r requirements.txt
+   Copy code
+   pip install -r requirements.txt
+4. **Set Up the Database Ensure the database.db file exists in the project directory. If not, create it by initializing the database:**
+   ```bash
+   Copy code
+   python
+   >>> from models import db
+   >>> db.create_all()
+   >>> exit()
+
+5. **Run the Application Start the Flask application:**
+   ```bash
+   Copy code
+   python app.py
+The application will be accessible at http://127.0.0.1:5000/.
+
+
+
