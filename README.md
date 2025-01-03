@@ -5,6 +5,7 @@ This project is a web-based Library Management System built using Flask. It allo
 ## Features
 
 - Manage books and their details.
+- Manage members and their details.
 - Add, edit, and delete member records.
 - Borrowing and returning functionality.
 - User-friendly interface.
@@ -70,6 +71,12 @@ The application will be accessible at http://127.0.0.1:5000/.
    - DELETE /books/<id>: Delete a book by ID.
    
    **Members:**
+   (include name,email,phone)
+   {
+       "name": "Shrinivas",
+        "email": "shr@gmail.com",
+        "phone": "9898989898"
+    }
    - GET /members: List all members.
    - POST /members: Add a new member.
    - GET /members/<id>: View member information by ID.
