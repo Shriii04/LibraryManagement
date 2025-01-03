@@ -7,7 +7,6 @@ This project is a web-based Library Management System built using Flask. It allo
 - Manage books and their details.
 - Manage members and their details.
 - Add, edit, and delete member records.
-- Borrowing and returning functionality.
 - User-friendly interface.
 
 ## Prerequisites
