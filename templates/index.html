@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        const apiBase = "http://127.0.0.1:5000";
+
+        async function fetchBooks() {
+            const response = await fetch(`${apiBase}/books`);
+            const books = await response.json();
+            const bookList = document.getElementById("book-list");
+            bookList.innerHTML = "";
+            books.forEach((book) => {
+                bookList.innerHTML += `
+                    <li>
+                        <strong>${book.title}</strong> by ${book.author}
+                        <button onclick="viewBookInfo(${book.id})">View Info</button>
+                        <button onclick="deleteBook(${book.id})">Delete</button>
+                    </li>`;
+            });
+        }
+
+        async function addBook(event) {
+            event.preventDefault();
+            const title = document.getElementById("title").value;
+            const author = document.getElementById("author").value;
+            const published_date = document.getElementById("published_date").value;
+            const isbn = document.getElementById("isbn").value;
+
+            const response = await fetch(`${apiBase}/books`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, author, published_date, isbn }),
+            });
+
+            if (response.ok) {
+                fetchBooks();
+            } else {
+                alert("Failed to add book.");
+            }
+        }
+
+        async function deleteBook(id) {
+            const response = await fetch(`${apiBase}/books/${id}`, {
+                method: "DELETE",
+            });
+
+            if (response.ok) {
+                fetchBooks();
+            } else {
+                alert("Failed to delete book.");
+            }
+        }
+
+        async function viewBookInfo(id) {
+            const response = await fetch(`${apiBase}/view_book/${id}`);
+            const book = await response.json();
+            
+            if (response.ok) {
+                alert(`Book Info: \nTitle: ${book.title}\nAuthor: ${book.author}\nPublished Date: ${book.published_date}\nISBN: ${book.isbn}`);
+            } else {
+                alert("Book not found.");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchBooks();
+        });
+    </script>
+</head>
+<body>
+    <h1>Library Management System</h1>
+
+    <h2>Add a New Book</h2>
+    <form onsubmit="addBook(event)">
+        <input type="text" id="title" placeholder="Title" required />
+        <input type="text" id="author" placeholder="Author" required />
+        <input type="date" id="published_date" placeholder="Published Date" required />
+        <input type="text" id="isbn" placeholder="ISBN" required />
+        <button type="submit">Add Book</button>
+    </form>
+
+    <h2>Books</h2>
+    <ul id="book-list"></ul>
+</body>
+</html>
