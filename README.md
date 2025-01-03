@@ -71,7 +71,11 @@ The application will be accessible at http://127.0.0.1:5000/.
    - DELETE /books/<id>: Delete a book by ID.
    
    **Members:**
+   
    (include name,email,phone)
+
+   example
+   
    {
        "name": "Shrinivas",
         "email": "shr@gmail.com",
